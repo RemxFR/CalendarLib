@@ -1,0 +1,30 @@
+<div class="myCalendarcomponent_container">
+  <div class="myCalendarForm_container">
+    <h1>MON CALENDRIER DU MOIS</h1>
+    <form class="myCalendarForm" [formGroup]="calendarForm" (ngSubmit)="saveDate()">
+      <mat-label>Entrez le mois</mat-label>
+      <mat-form-field>
+        <input matInput placeholder="ex: 1 pour Janvier ..." formControlName="month" type="text">
+        <mat-error>Veuillez entrer un chiffre entre 1 et 12</mat-error>
+      </mat-form-field>
+      <mat-label>Entrez l'année</mat-label>
+      <mat-form-field>
+      <input matInput formControlName="year" type="text"/>
+        <mat-error>Veuillez entrer une année entre 1900 et 2090</mat-error>
+      </mat-form-field>
+      <button mat-button color="primary" type="submit">Choisir date</button>
+    </form>
+  </div>
+
+  <div class="myCalendar">
+    <mat-grid-list cols="7" rowHeight="3:2" >
+        <mat-grid-tile class="tile_style" *ngFor="let date of monthCalendar" >
+          <span class="tile-date-header">{{date | date: 'dd/MM'}}</span>
+          <span class="tile-date-body">
+            <mat-icon class="add-picto" (click)="addEvent(date)">add</mat-icon>
+          </span>
+        </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+
+</div>
