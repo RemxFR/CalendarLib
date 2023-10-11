@@ -1,0 +1,11 @@
+<div class="event-popin_container">
+  <mat-icon class="pop-up_close-icone" mat-dialog-close>close</mat-icon>
+  <h2 class="event-popin_titre">Enregistrez votre évènement</h2>
+  <form class="eventForm-container" [formGroup]="eventForm" (ngSubmit)="saveEvent()">
+    <mat-form-field>
+      <mat-label>Entrez l'évènement</mat-label>
+      <input matInput formControlName="event" type="text" placeholder="Entrez l'événement">
+    </mat-form-field>
+    <button mat-button >Enregistrer</button>
+  </form>
+</div>

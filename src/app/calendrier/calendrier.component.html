@@ -9,7 +9,7 @@
       </mat-form-field>
       <mat-label>Entrez l'année</mat-label>
       <mat-form-field>
-      <input matInput formControlName="year" type="text"/>
+        <input matInput formControlName="year" type="text"/>
         <mat-error>Veuillez entrer une année entre 1900 et 2090</mat-error>
       </mat-form-field>
       <button mat-button color="primary" type="submit">Choisir date</button>
@@ -17,14 +17,14 @@
   </div>
 
   <div class="myCalendar">
-    <mat-grid-list cols="7" rowHeight="3:2" >
-        <mat-grid-tile class="tile_style" *ngFor="let date of monthCalendar" >
-          <span class="tile-date-header">{{date | date: 'dd/MM'}}</span>
-          <span class="tile-date-body">
-            <mat-icon class="add-picto" (click)="addEvent(date)">add</mat-icon>
+    <mat-grid-list cols="7" rowHeight="3:2">
+      <mat-grid-tile class="tile_style" *ngFor="let calendar of monthCalendarWithEvent">
+        <h2 class="tile-date-header">{{calendar.calendarDate | date: 'dd/MM'}}</h2>
+        <span class="tile-date-body">
+          <span class="tile-event" *ngIf="calendar.event !== undefined">{{calendar.event}}</span>
+            <mat-icon class="add-picto" (click)="addEvent(calendar.calendarDate)">add</mat-icon>
           </span>
-        </mat-grid-tile>
+      </mat-grid-tile>
     </mat-grid-list>
   </div>
-
 </div>

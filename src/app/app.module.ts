@@ -11,11 +11,14 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
+import { EventPopinComponent } from './popin/event-popin/event-popin.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
     AppComponent,
-    CalendrierComponent
+    CalendrierComponent,
+    EventPopinComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,8 @@ import {MatIconModule} from "@angular/material/icon";
     MatGridListModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

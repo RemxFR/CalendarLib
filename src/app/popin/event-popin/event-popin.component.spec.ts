@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CalendrierComponent } from './calendrier.component';
+import { EventPopinComponent } from './event-popin.component';
 
-describe('CalendrierComponent', () => {
-  let component: CalendrierComponent;
-  let fixture: ComponentFixture<CalendrierComponent>;
+describe('EventPopinComponent', () => {
+  let component: EventPopinComponent;
+  let fixture: ComponentFixture<EventPopinComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CalendrierComponent ]
+      declarations: [ EventPopinComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CalendrierComponent);
+    fixture = TestBed.createComponent(EventPopinComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

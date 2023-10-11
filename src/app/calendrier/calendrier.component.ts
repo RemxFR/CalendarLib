@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {CalendarEntity} from "./CalendarEntity";
-import {CalendrierService} from "./calendrier.service";
+import {CalendarEntity} from "../entity/CalendarEntity";
+import {CalendrierService} from "../service/calendrier.service";
 import {MatDialog} from "@angular/material/dialog";
+import {EventPopinComponent} from "../popin/event-popin/event-popin.component";
+import {CalendarMonthEntity} from "../entity/CalendarMonthEntity";
 
 @Component({
   selector: 'app-calendrier',
@@ -12,16 +14,18 @@ import {MatDialog} from "@angular/material/dialog";
 export class CalendrierComponent implements OnInit {
   calendarForm!: FormGroup;
   caldendarEntity!: CalendarEntity;
-  monthCalendar!: Date[];
+  monthCalendarWithEvent!: CalendarMonthEntity[];
+  private dialogHeight = "350px";
+  private dialogWidth = "350px";
 
-  constructor(private calendarService: CalendrierService) {
+  constructor(private calendarService: CalendrierService, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
     this.calendarForm = new FormBuilder().group({
       month: ['', {validators: [Validators.required, this.monthInputValidator], updateOn: "blur"}],
-      year: ['', {validators: [Validators.required, this.yearRegexValidator], updateOn: "blur"}]
-    })
+      year: [{validators: [Validators.required, this.yearRegexValidator], updateOn: "blur"}]
+    });
   }
 
   monthInputValidator(control: AbstractControl<string>) {
@@ -45,19 +49,35 @@ export class CalendrierComponent implements OnInit {
     return isError ? {yearInvalid: true} : null;
   }
 
-
   saveDate() {
-    this.monthCalendar = [];
+
     let month = this.calendarForm.get('month')?.value;
     let year = this.calendarForm.get('year')?.value;
     this.caldendarEntity = new CalendarEntity(month, year);
-    this.calendarService.generateCalendar(this.caldendarEntity).subscribe((data: Date[]) => {
+    this.calendarService.generateCalendar(this.caldendarEntity).subscribe((data: CalendarMonthEntity[]) => {
+      this.monthCalendarWithEvent = [];
       for (let i = 0; i < data.length; i++) {
-        this.monthCalendar.push(data[i]);
+        this.monthCalendarWithEvent.push(data[i]);
       }
     });
   }
 
   addEvent(date: Date) {
+    const dial = this.dialog.open(EventPopinComponent, {
+      height: this.dialogHeight,
+      width: this.dialogWidth
+    });
+    dial.afterClosed().subscribe(event => {
+      this.monthCalendarWithEvent = [];
+      let newDate = new Date(date);
+      let calendarEntity = new CalendarMonthEntity(newDate, event);
+      this.calendarService.generateCalendarWithEvent(calendarEntity).subscribe(
+        data => {
+          for (let i = 0; i < data.length; i++) {
+            this.monthCalendarWithEvent.push(data[i]);
+          }
+        }
+      );
+    })
   }
 }
