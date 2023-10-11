@@ -6,10 +6,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Pour lancer l'application front, il suffit d'inscrire `ng serve` dans la console. 
 Le port par défault sera le 4200, en se rendant sur `http://localhost:4200/`, on affichera la page en local.
-L"application se rechargera automatiquement si on change un des fichiers.
+L'application se rechargera automatiquement si on change un des fichiers.
 
 ## Utilisation
-Il suffit d'inscrire le numéro du mois et le nombre de l'année puis cliqué sur le bouton en dessous du formulaire pour afficher le calendrier.
+Il suffit d'inscrire le numéro du mois et le nombre de l'année puis de cliquer sur le bouton en dessous du formulaire pour afficher le calendrier.
 Pour saisir un évènement il faudra cliquer sur le bouton + et 'enregistrer'.
 
 ## Limitations
