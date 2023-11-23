@@ -18,13 +18,14 @@ export class CalendrierComponent implements OnInit {
   private dialogHeight = "350px";
   private dialogWidth = "350px";
 
-  constructor(private calendarService: CalendrierService, private dialog: MatDialog) {}
+  constructor(private calendarService: CalendrierService, private dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
     //Création du formulaire
     this.calendarForm = new FormBuilder().group({
       month: ['', {validators: [Validators.required, this.monthInputValidator], updateOn: "blur"}],
-      year: [{validators: [Validators.required, this.yearRegexValidator], updateOn: "blur"}]
+      year: ['', {validators: [Validators.required, this.yearRegexValidator], updateOn: "blur"}]
     });
   }
 
@@ -53,15 +54,17 @@ export class CalendrierComponent implements OnInit {
 
   //Méthode pour récuppérer le calendrier mensuel.
   saveDate() {
-    let month = this.calendarForm.get('month')?.value;
-    let year = this.calendarForm.get('year')?.value;
-    this.caldendarEntity = new CalendarEntity(month, year);
-    this.calendarService.generateCalendar(this.caldendarEntity).subscribe((data: CalendarMonthEntity[]) => {
-      this.monthCalendarWithEvent = [];
-      for (let i = 0; i < data.length; i++) {
-        this.monthCalendarWithEvent.push(data[i]);
-      }
-    });
+    if (this.calendarForm.valid) {
+      let month = this.calendarForm.get('month')?.value;
+      let year = this.calendarForm.get('year')?.value;
+      this.caldendarEntity = new CalendarEntity(month, year);
+      this.calendarService.generateCalendar(this.caldendarEntity).subscribe((data: CalendarMonthEntity[]) => {
+        this.monthCalendarWithEvent = [];
+        for (let i = 0; i < data.length; i++) {
+          this.monthCalendarWithEvent.push(data[i]);
+        }
+      });
+    }
   }
 
   /*Méthode pour ajouter un event via une popin et récupérer le calednrier mensuel
@@ -72,7 +75,7 @@ export class CalendrierComponent implements OnInit {
       width: this.dialogWidth
     });
 
-    /*APrès la fermeture de la popup, on récupère la valeur de l'évènement inscrit
+    /*Après la fermeture de la popup, on récupère la valeur de l'évènement inscrit
     et on génère le nouveau calendrier mensuel en l'intégrant à celui-ci*/
     dial.afterClosed().subscribe(event => {
       this.monthCalendarWithEvent = [];

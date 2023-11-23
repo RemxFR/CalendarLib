@@ -23,13 +23,13 @@ describe('AppComponent', () => {
   it(`should have as title 'CalendarLib'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('CalendarLib');
+    expect(app.title).toEqual('CalendarLibFront');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('CalendarLib app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('CalendarLibFront app is running!');
   });
 });

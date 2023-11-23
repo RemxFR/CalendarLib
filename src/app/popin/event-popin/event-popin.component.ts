@@ -12,17 +12,20 @@ export class EventPopinComponent implements OnInit {
 
   constructor(private dialog: MatDialogRef<EventPopinComponent>) {
   }
+
   ngOnInit(): void {
     //Génération du formuliare pour les events.
     this.eventForm = new FormBuilder().group({
-      event: ['', Validators.required]
+      event: [null, Validators.required]
     });
   }
 
   //Transfert de la valeur de l'évènement vers la page principale.
   saveEvent() {
-    let event = this.eventForm.get('event')?.value;
-    this.dialog.close(event);
+    if (this.eventForm.valid) {
+      let event = this.eventForm.get('event')?.value;
+      this.dialog.close(event);
+    }
   }
 
 }
